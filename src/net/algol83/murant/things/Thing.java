@@ -6,6 +6,7 @@ public class Thing {
 
 	private Point position = new Point();
 	private double radius = 0;
+	private float angle = 0;
 
 	public double getRadius() {
 		return radius;
@@ -20,7 +21,17 @@ public class Thing {
 	}
 	
 	public void setPosition(Point position) {
+		if (position == null)
+			throw new IllegalArgumentException();
 		this.position = position;
+	}
+
+	public float getAngle() {
+		return angle;
+	}
+
+	public void setAngle(float angle) {
+		this.angle = angle;
 	}
 	
 }
