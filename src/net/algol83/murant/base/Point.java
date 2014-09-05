@@ -15,6 +15,11 @@ public class Point {
 		setY(y);
 	}
 
+	public Point(Point begin) {
+		setX(begin.x);
+		setY(begin.y);
+	}
+
 	public double getX() {
 		return x;
 	}
@@ -31,9 +36,15 @@ public class Point {
 		this.y = y;
 	}
 	
-	public Point append(Point point) {
+	public Point addition(Point point) {
 		x += point.x;
 		y += point.y;
+		return this;
+	}
+	
+	public Point subtracting(Point point) {
+		x -= point.x;
+		y -= point.y;
 		return this;
 	}
 	

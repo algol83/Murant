@@ -1,6 +1,11 @@
 # Eclipse
 .*
 
+# Ant
+build/
+dist/
+lib/
+
 # Java
 *.class
 

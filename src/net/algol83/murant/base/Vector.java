@@ -8,6 +8,11 @@ public class Vector {
 	public Vector() {
 	}
 	
+	public Vector(Vector vector) {
+		setBegin(new Point(vector.getBegin()));
+		setEnd(new Point(vector.getEnd()));
+	}
+	
 	public Vector(Point begin, Point end) {
 		setBegin(begin);
 		setEnd(end);
@@ -16,7 +21,7 @@ public class Vector {
 	public Vector(Point begin, Polar polar) {
 		setBegin(begin);
 		setEnd(begin);
-		end.append(polar.toPoint());
+		end.addition(polar.toPoint());
 	}
 
 	public Point getBegin() {
@@ -39,5 +44,8 @@ public class Vector {
 		this.end = end;
 	}
 	
+	public double getLength() {
+		return new Point(begin).subtracting(end).getLength();
+	}
 	
 }
