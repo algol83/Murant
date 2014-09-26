@@ -1,6 +1,5 @@
 package net.algol83.murant;
 
-import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -13,7 +12,6 @@ import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 
-import com.jogamp.opengl.util.Animator;
 import com.jogamp.opengl.util.FPSAnimator;
 
 @SuppressWarnings("serial")
@@ -88,7 +86,6 @@ public final class Murant extends Frame {
 
         canvas.addGLEventListener(new SimpleScene());
         FPSAnimator animator = new FPSAnimator(canvas, 60);
-        animator.add(canvas);
         animator.start();
     }
 	

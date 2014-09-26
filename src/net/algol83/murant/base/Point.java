@@ -1,71 +1,70 @@
 package net.algol83.murant.base;
 
+import com.sun.istack.internal.NotNull;
+
 public class Point {
 
-	private static double MinDifference = 0.0001;
+	private static final double MIN_DIFFERENCE = 0.0001;
 	
-	private double x = 0;
-	private double y = 0;
+	public static final Point EMPTY = new Point();
 	
-	public Point() {
+	private final double x;
+	private final double y;
+	
+	private Point() {
+		this(Double.NaN, Double.NaN);
 	}
 	
 	public Point(double x, double y) {
-		setX(x);
-		setY(y);
+		this.x = x;
+		this.y = y;
 	}
 
-	public Point(Point begin) {
-		setX(begin.x);
-		setY(begin.y);
+	public Point(@NotNull Point begin) {
+		this(begin.x, begin.y);
 	}
 
 	public double getX() {
 		return x;
 	}
 
-	public void setX(double x) {
-		this.x = x;
-	}
-
 	public double getY() {
 		return y;
 	}
+	
+	public @NotNull Point addition(@NotNull Point point) {
+		return new Point(getX() + point.getX(), getY() + point.getY());
+	}
+	
+	public @NotNull Point subtracting(@NotNull Point point) {
+		return new Point(getX() - point.getX(), getY() - point.getY());
+	}
+	
+	public @NotNull Point negative() {
+		return new Point(-getX(), -getY());
+	}
 
-	public void setY(double y) {
-		this.y = y;
+	public boolean isEmpty() {
+		return Double.isNaN(getX()) || Double.isNaN(getY());
 	}
 	
-	public Point addition(Point point) {
-		x += point.x;
-		y += point.y;
-		return this;
-	}
-	
-	public Point subtracting(Point point) {
-		x -= point.x;
-		y -= point.y;
-		return this;
-	}
-	
-	public Point negative() {
-		return new Point(-x, -y);
-	}
-	
-	public boolean isSame(Point point) {
-		return Math.abs(x - point.x) < MinDifference &&
-				 Math.abs(y - point.y) < MinDifference;
+	public boolean isSame(@NotNull Point point) {
+		return equals(getX(), point.getX()) && equals(getY(), point.getY());
 	}
 	
 	public double getLength() {
-		return Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+		return Math.sqrt(Math.pow(getX(), 2) + Math.pow(getY(), 2));
 	}
 	
-	public Polar toPolar() {
-		return new Polar(getLength(), (float) Math.atan(y / x));
+	public @NotNull Polar toPolar() {
+		return new Polar(getLength(), (float) Math.atan(getY() / getX()));
 	}
 	
-	public String toString() {
-		return String.format("<base.Point (%.3g, %.3g)>", x, y);
+	public @NotNull String toString() {
+		return String.format("<base.Point (%.3g, %.3g)>", getX(), getY());
+	}
+	
+	static public boolean equals(double x, double y) {
+		return Math.abs(x - y) < MIN_DIFFERENCE;
 	}
 }

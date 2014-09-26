@@ -4,7 +4,7 @@ import net.algol83.murant.base.Point;
 
 public class Thing {
 
-	private Point position = new Point();
+	private Point position = new Point(0.0, 0.0);
 	private double radius = 0;
 	private float angle = 0;
 
