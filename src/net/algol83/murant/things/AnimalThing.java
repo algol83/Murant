@@ -1,12 +1,14 @@
 package net.algol83.murant.things;
 
+import com.sun.istack.internal.NotNull;
+
 import net.algol83.murant.base.Path;
 
 public class AnimalThing extends Thing {
 
-	private Path path = new Path();
+	private final Path path = new Path();
 	
-	public Path getPath() {
+	public @NotNull Path getPath() {
 		return path;
 	}
 	

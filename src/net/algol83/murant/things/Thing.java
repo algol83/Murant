@@ -1,10 +1,12 @@
 package net.algol83.murant.things;
 
+import com.sun.istack.internal.NotNull;
+
 import net.algol83.murant.base.Point;
 
 public class Thing {
 
-	private Point position = new Point(0.0, 0.0);
+	private @NotNull Point position = new Point(0.0, 0.0);
 	private double radius = 0;
 	private float angle = 0;
 
@@ -16,13 +18,11 @@ public class Thing {
 		this.radius = radius;
 	}
 
-	public Point getPosition() {
+	public @NotNull Point getPosition() {
 		return position;
 	}
 	
-	public void setPosition(Point position) {
-		if (position == null)
-			throw new IllegalArgumentException();
+	public void setPosition(@NotNull Point position) {
 		this.position = position;
 	}
 

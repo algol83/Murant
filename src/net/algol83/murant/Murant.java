@@ -4,64 +4,22 @@ import java.awt.Frame;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-import javax.media.opengl.GL;
-import javax.media.opengl.GL2;
-import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLCapabilities;
-import javax.media.opengl.GLEventListener;
 import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
+
+import net.algol83.murant.base.Point;
+import net.algol83.murant.things.AnimalThing;
+import net.algol83.murant.things.Thing;
 
 import com.jogamp.opengl.util.FPSAnimator;
 
 @SuppressWarnings("serial")
 public final class Murant extends Frame {
 
-	public class SimpleScene implements GLEventListener {
-	    private double theta = 0;
-	    private double s = 0;
-	    private double c = 0;
+	private final World world = new World();
+	private final WorldScene scene = new WorldScene(world);
 	
-	    @Override
-	    public void display(GLAutoDrawable drawable) {
-	        update();
-	        render(drawable);
-	    }
-
-	    @Override
-	    public void dispose(GLAutoDrawable drawable) {
-	    }
-	
-	    @Override
-	    public void init(GLAutoDrawable drawable) {
-	    }
-	
-	    @Override
-	    public void reshape(GLAutoDrawable drawable, int x, int y, int w, int h) {
-	    }
-
-	    private void update() {
-	        theta += 0.01;
-	        s = Math.sin(theta);
-	        c = Math.cos(theta);
-	    }
-	
-	    private void render(GLAutoDrawable drawable) {
-	        GL2 gl = drawable.getGL().getGL2();
-	        gl.glClear(GL.GL_COLOR_BUFFER_BIT);
-	
-	        // draw a triangle filling the window
-	        gl.glBegin(GL.GL_TRIANGLES);
-	        gl.glColor3f(1, 0, 0);
-	        gl.glVertex2d(-c, -c);
-	        gl.glColor3f(0, 1, 0);
-	        gl.glVertex2d(0, c);
-	        gl.glColor3f(0, 0, 1);
-	        gl.glVertex2d(s, -s);
-	        gl.glEnd();
-	    }
-	}
-
 	public Murant() {
         super("Murant");
 
@@ -84,15 +42,26 @@ public final class Murant extends Frame {
             }
         });
 
-        canvas.addGLEventListener(new SimpleScene());
+        canvas.addGLEventListener(scene);
         FPSAnimator animator = new FPSAnimator(canvas, 60);
         animator.start();
     }
 	
-	public static void main(String[] args) {
-		System.out.println("Hello World!");
+	public static void main(String[] args) {		
+		final Murant murant = new Murant();
 		
-		Murant murant = new Murant();
+		Thing thing;
+		
+		thing = new AnimalThing();
+		thing.setRadius(0.2);
+		thing.setPosition(new Point(0.1, 0.1));
+		murant.world.addThing(thing);
+		
+		thing = new AnimalThing();
+		thing.setRadius(0.3);
+		thing.setPosition(new Point(-0.1, -0.1));
+		murant.world.addThing(thing);
+		
 		murant.setVisible(true);
 	}
 
